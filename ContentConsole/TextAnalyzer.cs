@@ -1,5 +1,7 @@
 ﻿namespace ContentConsole
 {
+    using System.Text.RegularExpressions;
+
     public static class TextAnalyzer
     {
         private const string BannedWord1 = "swine";
@@ -9,24 +11,23 @@
 
         public static int CountBadWords(string text)
         {
-
             int badWords = 0;
-            if (text.Contains(BannedWord1))
-            {
-                badWords = badWords + 1;
-            }
-            if (text.Contains(BannedWord2))
-            {
-                badWords = badWords + 1;
-            }
-            if (text.Contains(BannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (text.Contains(BannedWord4))
-            {
-                badWords = badWords + 1;
-            }
+
+            MatchCollection matches = Regex.Matches(text, BannedWord1);
+
+            badWords += matches.Count;
+
+            matches = Regex.Matches(text, BannedWord2);
+
+            badWords += matches.Count;
+
+            matches = Regex.Matches(text, BannedWord3);
+
+            badWords += matches.Count;
+
+            matches = Regex.Matches(text, BannedWord4);
+
+            badWords += matches.Count;
 
             return badWords;
         }

@@ -44,5 +44,15 @@
 
             Assert.AreEqual(3, result);
         }
+
+        [Test]
+        public void Given6MixedBadWords_Returns6()
+        {
+            const string input = "bad horrible bad nasty nasty swine";
+
+            var result = TextAnalyzer.CountBadWords(input);
+
+            Assert.AreEqual(6, result);
+        }
     }
 }
