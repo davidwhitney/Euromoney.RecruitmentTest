@@ -1,0 +1,120 @@
+using System;
+
+namespace TestInterview
+{
+    class StringTest
+    {
+        public static void Main(string[] args)
+        {            
+            string originalTxt;
+            string[] arrNegativeWords;            
+            int NegativeWordsCount = 0;
+            string ReplacedText;
+            string FirstSubstring, MiddleSubstring, LastSubstring;
+            string JoinString = "";
+            string NegativeWord;
+            string ChangeNegativeWord;
+            string IsScannedText;
+            string ListNegativeWord;
+            string IsChange;
+            int Count=0;
+            string IsDisableFilter;
+            
+            //Accepts user input or scanned text and displays text.
+            Console.WriteLine("Story 1:");
+            Console.Write("Do you want to use Existing text? (y/n):");
+            IsScannedText = Console.ReadLine();
+            
+           arrNegativeWords = new string[2];
+           originalTxt = "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
+            if (IsScannedText.Equals("Y") || IsScannedText.Equals("y"))
+            {               
+                
+                Console.Write("The Scanned text:");
+            }
+            else if (IsScannedText.Equals("N") || IsScannedText.Equals("n"))
+            {
+                Console.WriteLine("Please enter the text: ");
+                originalTxt = Console.ReadLine();                
+            }
+                      
+            Console.WriteLine(originalTxt);           
+            ReplacedText = originalTxt;
+            
+            //Resizes array. Changes and sets Negative words in Array. Accepts only one Negative word from user.
+            Console.WriteLine("\nStory 2:");
+            Console.Write("Do you want to change Negative Words? (y/n):");
+            IsChange = Console.ReadLine();
+            ListNegativeWord = "";
+
+            if (IsChange.Equals("Y") || IsChange.Equals("y"))
+            {
+                Console.Write("Please enter one Negative word:");
+                ChangeNegativeWord = Console.ReadLine();
+                Array.Resize(ref arrNegativeWords, 5);
+                arrNegativeWords[arrNegativeWords.Length - 3] = ChangeNegativeWord;
+
+                foreach (string item in arrNegativeWords)
+                {
+                    if (item != null)
+                    {
+                        ListNegativeWord = item + " " + ListNegativeWord;
+                        Count++;
+                    }
+                }
+            }
+            else
+            {
+                arrNegativeWords = new string[2] { "bad", "horrible" };
+            }
+            //Replaces Negative words with appropriate * symbol. Negative words are filtered in original text and replaced.
+            //Displays count of Negative words. 
+            if (arrNegativeWords.Length.Equals(0))
+            {
+                Console.WriteLine("There are no words in the Data store");
+            }
+            else
+            {
+                for (int i = 0; i < arrNegativeWords.Length; i++)
+                {
+                    if (arrNegativeWords[i] != null)
+                    {
+                        if (originalTxt.Contains(arrNegativeWords[i]))
+                        {
+                            NegativeWord = arrNegativeWords[i];
+                            NegativeWordsCount++;
+                            FirstSubstring = NegativeWord.Substring(0, 1);
+                            LastSubstring = NegativeWord.Substring(NegativeWord.Length - 1, 1);
+                            MiddleSubstring = NegativeWord.Substring(1, NegativeWord.Length - 2);
+                            for (int k = 0; k < MiddleSubstring.Length; k++)
+                            {
+                                JoinString = JoinString + "*";
+                            }
+                            ReplacedText = ReplacedText.Replace(arrNegativeWords[i], FirstSubstring + JoinString + LastSubstring);
+                            JoinString = "";
+                        }
+                    }
+                }
+                Console.WriteLine("Total Number of Negative words in the text : {0}", NegativeWordsCount);
+            }
+            Console.WriteLine("Display Negative words in Data store: {0}", ListNegativeWord);
+            Console.WriteLine("Count of Negative words in Data store: {0}", Count);
+            //Displays Replaced text
+            Console.WriteLine("\nStory 3:");
+            Console.WriteLine("Replaced Text = " + ReplacedText);
+            //Displays original text and count of Negative words
+            Console.WriteLine("\nStory 4:");            
+            Console.WriteLine("Do you want to disable filtering of Negative words? (y/n):");
+            IsDisableFilter = Console.ReadLine();
+            if (IsDisableFilter.Equals("Y") || IsDisableFilter.Equals("y"))
+            {
+                Console.WriteLine("Original Text = " + originalTxt);
+            }
+            else if (IsDisableFilter.Equals("N") || IsDisableFilter.Equals("n"))
+            {
+                Console.WriteLine("Replaced Text = " + ReplacedText);
+            }
+            Console.WriteLine("Count of Negative words :" + NegativeWordsCount);
+        }
+    }
+}
