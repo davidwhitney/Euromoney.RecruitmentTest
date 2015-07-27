@@ -1,44 +1,63 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ContentConsole
 {
-    public static class Program
+    class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
-            string bannedWord1 = "swine";
-            string bannedWord2 = "bad";
-            string bannedWord3 = "nasty";
-            string bannedWord4 = "horrible";
+            BadWords bw = new BadWords();
+            bw.GetBadWords();
 
-            string content =
-                "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
+            re_try:
+            try
+            {
+                Console.WriteLine("Please input 1 for Bad Word Admin, 2 for Content Curator, or 3 for Reader:");
+                Variables.choice = int.Parse(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("Invalid choice, please retry.");
+                goto re_try;
+            }
+            
 
-            int badWords = 0;
-            if (content.Contains(bannedWord1))
+            if (Variables.choice == 1) //Admin
             {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord2))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord4))
-            {
-                badWords = badWords + 1;
+                Console.WriteLine("Current bad words are:");
+
+                List<string> bad_words_list = Variables.GetList();
+
+                for (int i_bad_words = 0; i_bad_words <= bad_words_list.Count - 1; i_bad_words++)
+                {
+                    Console.WriteLine(bad_words_list[i_bad_words]);
+                }
+
+                AddWord aw = new AddWord();
+                aw.NewWord();
+
+                Console.WriteLine("Press ANY key.");
+                Console.ReadKey();
             }
 
-            Console.WriteLine("Scanned the text:");
-            Console.WriteLine(content);
-            Console.WriteLine("Total Number of negative words: " + badWords);
+            else  //Curator & Reader
+            {
+                GetContent gc = new GetContent();
+                gc.NewContent();
 
-            Console.WriteLine("Press ANY key to exit.");
-            Console.ReadKey();
+                Console.WriteLine();
+                Console.WriteLine("Scanned the text:");
+                Console.WriteLine(Variables.GetContent());
+                Console.WriteLine("Total Number of negative words: " + ContentScanner.BadWordCount());
+
+                Console.WriteLine("Press ANY key to exit.");
+                Console.ReadKey();
+            }
+
         }
     }
-
 }
