@@ -6,9 +6,12 @@ namespace ContentConsole
     {
         public static void Main(string[] args)
         {
-            string bannedWord1 = "swine";
+            string bannedWord1 = "swine"; 
+            
             string bannedWord2 = "bad";
+            
             string bannedWord3 = "nasty";
+            
             string bannedWord4 = "horrible";
 
             string content =
