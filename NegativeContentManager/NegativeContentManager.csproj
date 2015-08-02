@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70DA2B36-EBF3-4438-9F95-ECC828A64527}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{6C1B75B5-A7EE-495C-B2DF-58FD2F39CEB5}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ContentConsole</RootNamespace>
-    <AssemblyName>ContentConsole</AssemblyName>
+    <RootNamespace>NegativeContentManager</RootNamespace>
+    <AssemblyName>NegativeContentManager</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -29,9 +29,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,17 +39,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="BO\ContentManager.cs" />
+    <Compile Include="BO\GetNegativeWordsList.cs" />
+    <Compile Include="BO\AnalyseContentForNegativeWords.cs" />
+    <Compile Include="BO\NegativeWordsBase.cs" />
+    <Compile Include="BO\ReadContentWithNegativeWords.cs" />
+    <Compile Include="BO\UpdateNegativeWordsList.cs" />
+    <Compile Include="DTO\UserState.cs" />
+    <Compile Include="Interfaces\IContentManager.cs" />
+    <Compile Include="Interfaces\INegativeWordsManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NegativeContentManager.DAL\NegativeContentManager.DAL.csproj">
       <Project>{A2B4998D-C585-4DAF-8B2B-F782003E7523}</Project>
       <Name>NegativeContentManager.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NegativeContentManager\NegativeContentManager.csproj">
-      <Project>{6C1B75B5-A7EE-495C-B2DF-58FD2F39CEB5}</Project>
-      <Name>NegativeContentManager</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
