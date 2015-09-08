@@ -2,39 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ContentConsole
 {
     public class TextParser
     {
+        private List<string> _bannedWords = new List<string>
+        {
+            "swine",
+            "bad",
+            "nasty",
+            "horrible"
+        };
         public int CountBadWords(string content)
         {
-            string bannedWord1 = "swine";
-            string bannedWord2 = "bad";
-            string bannedWord3 = "nasty";
-            string bannedWord4 = "horrible";
-
             int badWords = 0;
-            if (content.Contains(bannedWord1))
+            foreach (var bannedWord in _bannedWords)
             {
-                badWords = badWords + 1;
+                badWords += Regex.Matches(content, bannedWord).Count;
             }
-            if (content.Contains(bannedWord2))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord4))
-            {
-                badWords = badWords + 1;
-            }
-
             return badWords;
-
         }
     }
 }

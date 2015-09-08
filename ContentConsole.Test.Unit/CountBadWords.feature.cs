@@ -92,6 +92,63 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("1 bad word")]
+        public virtual void _1BadWord()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1 bad word", ((string[])(null)));
+#line 14
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 15
+ testRunner.Given("I have the input \"This is a bad input\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 16
+ testRunner.When("I evaluate the message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 17
+ testRunner.Then("the number of bad words should be 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("2 diferent bad words")]
+        public virtual void _2DiferentBadWords()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("2 diferent bad words", ((string[])(null)));
+#line 19
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 20
+ testRunner.Given("I have the input \"This is a bad and nasty input\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 21
+ testRunner.When("I evaluate the message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 22
+ testRunner.Then("the number of bad words should be 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Repetition bad words")]
+        public virtual void RepetitionBadWords()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Repetition bad words", ((string[])(null)));
+#line 24
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 25
+ testRunner.Given("I have the input \"This is a bad bad bad input\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 26
+ testRunner.When("I evaluate the message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 27
+ testRunner.Then("the number of bad words should be 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
