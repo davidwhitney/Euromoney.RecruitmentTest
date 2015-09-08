@@ -3,6 +3,10 @@
 	I need to be able to count the bad words on it
 
 Background: 
+	Given The banned words are 
+		| bannedWords |
+		| nasty       |
+		| bad         |
 	Given I have a text parser
 
 @success

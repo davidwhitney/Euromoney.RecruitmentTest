@@ -67,7 +67,16 @@ namespace ContentConsole.Test.Unit
         public virtual void FeatureBackground()
         {
 #line 5
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "bannedWords"});
+            table1.AddRow(new string[] {
+                        "nasty"});
+            table1.AddRow(new string[] {
+                        "bad"});
 #line 6
+ testRunner.Given("The banned words are", ((string)(null)), table1, "Given ");
+#line 10
  testRunner.Given("I have a text parser", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
         }
@@ -79,15 +88,15 @@ namespace ContentConsole.Test.Unit
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No bad words", new string[] {
                         "success"});
-#line 9
+#line 13
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 10
+#line 14
  testRunner.Given("I have the input \"This is a good input\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 11
+#line 15
  testRunner.When("I evaluate the message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 12
+#line 16
  testRunner.Then("the number of bad words should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -98,15 +107,15 @@ this.FeatureBackground();
         public virtual void _1BadWord()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1 bad word", ((string[])(null)));
-#line 14
+#line 18
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 15
+#line 19
  testRunner.Given("I have the input \"This is a bad input\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 16
+#line 20
  testRunner.When("I evaluate the message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 17
+#line 21
  testRunner.Then("the number of bad words should be 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -117,15 +126,15 @@ this.FeatureBackground();
         public virtual void _2DiferentBadWords()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("2 diferent bad words", ((string[])(null)));
-#line 19
+#line 23
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 20
+#line 24
  testRunner.Given("I have the input \"This is a bad and nasty input\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 21
+#line 25
  testRunner.When("I evaluate the message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 22
+#line 26
  testRunner.Then("the number of bad words should be 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -136,15 +145,15 @@ this.FeatureBackground();
         public virtual void RepetitionBadWords()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Repetition bad words", ((string[])(null)));
-#line 24
+#line 28
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 25
+#line 29
  testRunner.Given("I have the input \"This is a bad bad bad input\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 26
+#line 30
  testRunner.When("I evaluate the message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 27
+#line 31
  testRunner.Then("the number of bad words should be 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

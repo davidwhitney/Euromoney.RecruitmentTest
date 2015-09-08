@@ -9,17 +9,16 @@ namespace ContentConsole
 {
     public class TextParser
     {
-        private List<string> _bannedWords = new List<string>
+        private readonly IBannedWords _bannedWords;
+        public TextParser(IBannedWords bannedWords)
         {
-            "swine",
-            "bad",
-            "nasty",
-            "horrible"
-        };
+            _bannedWords = bannedWords;
+        }
+        
         public int CountBadWords(string content)
         {
             int badWords = 0;
-            foreach (var bannedWord in _bannedWords)
+            foreach (var bannedWord in _bannedWords.List)
             {
                 badWords += Regex.Matches(content, bannedWord).Count;
             }

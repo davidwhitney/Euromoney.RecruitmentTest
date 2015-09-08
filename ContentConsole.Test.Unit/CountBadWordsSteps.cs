@@ -1,6 +1,8 @@
 ﻿using Shouldly;
 using System;
+using System.Collections.Generic;
 using TechTalk.SpecFlow;
+using System.Linq;
 
 namespace ContentConsole.Test.Unit
 {
@@ -28,7 +30,7 @@ namespace ContentConsole.Test.Unit
             }
             set
             {
-                ScenarioContext.Current.Set(value,INPUT_KEY);
+                ScenarioContext.Current.Set(value, INPUT_KEY);
             }
         }
         private int _badWordsCount
@@ -43,10 +45,36 @@ namespace ContentConsole.Test.Unit
             }
         }
 
+        private IBannedWords _bannedWords
+        {
+            get
+            {
+                return ScenarioContext.Current.Get<IBannedWords>();
+            }
+            set
+            {
+                ScenarioContext.Current.Set(value);
+            }
+        }
+
+        [Given(@"The banned words are")]
+        public void GivenTheBannedWordsAre(Table bannedWords)
+        {
+            List<string> bannedWordList = new List<string>();
+            foreach (var word in bannedWords.Rows)
+            {
+                bannedWordList.Add(word["bannedWords"]);
+            };
+            var bannedWordsMock = new Moq.Mock<IBannedWords>();
+            bannedWordsMock.SetupGet(x => x.List).Returns(bannedWordList);
+            _bannedWords = bannedWordsMock.Object;
+        }
+
+
         [Given(@"I have a text parser")]
         public void GivenIHaveATextParser()
         {
-            _textParser = new TextParser();
+            _textParser = new TextParser(_bannedWords);
         }
 
         [Given(@"I have the input ""(.*)""")]
