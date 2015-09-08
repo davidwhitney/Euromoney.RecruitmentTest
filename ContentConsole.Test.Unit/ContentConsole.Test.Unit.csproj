@@ -61,6 +61,12 @@
       <DependentUpon>CountBadWords.feature</DependentUpon>
     </Compile>
     <Compile Include="CountBadWordsSteps.cs" />
+    <Compile Include="ManageBannedWords.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ManageBannedWords.feature</DependentUpon>
+    </Compile>
+    <Compile Include="ManageBannedWordsSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +74,10 @@
     <None Include="CountBadWords.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CountBadWords.feature.cs</LastGenOutput>
+    </None>
+    <None Include="ManageBannedWords.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ManageBannedWords.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

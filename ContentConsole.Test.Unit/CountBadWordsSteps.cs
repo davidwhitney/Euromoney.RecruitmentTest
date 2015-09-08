@@ -22,6 +22,7 @@ namespace ContentConsole.Test.Unit
                 ScenarioContext.Current.Set(value);
             }
         }
+
         private string _input
         {
             get
@@ -33,6 +34,7 @@ namespace ContentConsole.Test.Unit
                 ScenarioContext.Current.Set(value, INPUT_KEY);
             }
         }
+
         private int _badWordsCount
         {
             get

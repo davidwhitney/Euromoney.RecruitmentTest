@@ -6,10 +6,13 @@ namespace ContentConsole
     {
         public static void Main(string[] args)
         {
-
-            string content =
+            
+            string content = 
                 "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
-            TextParser textParser = new TextParser(new BannedWords());
+
+            var tempFileProvider = new TempFileProvider();
+            var bannedWords = new BannedWords(tempFileProvider);
+            TextParser textParser = new TextParser(bannedWords);
 
             int badWordsCount = textParser.CountBadWords(content);
 
