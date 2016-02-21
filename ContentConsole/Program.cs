@@ -1,4 +1,6 @@
 ﻿using System;
+using ContentConsole.DAL;
+using ContentConsole.DAL.Repositories;
 
 namespace ContentConsole
 {
@@ -8,10 +10,10 @@ namespace ContentConsole
         {
             var content = "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
             
-            //Move to IoC
-            var contentRules = new ContentRules();
-
-            var contentParser = new ContentParser(contentRules);
+            //Move to IoC container
+            var dbContext = new ContentRulesContext();
+            var contentRulesRepository = new ContentRulesRepository(dbContext);
+            var contentParser = new ContentParser(contentRulesRepository);
 
             var badWordCount = contentParser.CountNegativeWords(content);
 

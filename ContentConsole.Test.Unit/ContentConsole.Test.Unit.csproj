@@ -54,6 +54,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ContentConsole.DAL\ContentConsole.DAL.csproj">
+      <Project>{643eab4f-404c-4bff-a70e-f1521b78c35b}</Project>
+      <Name>ContentConsole.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ContentConsole\ContentConsole.csproj">
       <Project>{70da2b36-ebf3-4438-9f95-ecc828a64527}</Project>
       <Name>ContentConsole</Name>

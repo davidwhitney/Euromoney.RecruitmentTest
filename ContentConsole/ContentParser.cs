@@ -1,14 +1,15 @@
 using System.Linq;
+using ContentConsole.DAL.Repositories;
 
 namespace ContentConsole
 {
     public class ContentParser : IContentParser
     {
-        private readonly IContentRules _contentRules;
+        private readonly IContentRulesRepository _contentRulesRepository;
 
-        public ContentParser(IContentRules contentRules)
+        public ContentParser(IContentRulesRepository contentRulesRepositoryRepository)
         {            
-            _contentRules = contentRules;
+            _contentRulesRepository = contentRulesRepositoryRepository;
         }
 
         public int CountNegativeWords(string input)
@@ -16,7 +17,9 @@ namespace ContentConsole
             if (string.IsNullOrEmpty(input))
                 return 0;
 
-            return _contentRules.NegativeWords.Count(input.Contains);
+            var negativeWordsList = _contentRulesRepository.GetNegativeWords();
+
+            return negativeWordsList.Count(input.Contains);
         }
     }
 }

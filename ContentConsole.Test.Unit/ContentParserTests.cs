@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ContentConsole.DAL.Repositories;
 using Moq;
 using NUnit.Framework;
 
@@ -8,20 +9,20 @@ namespace ContentConsole.Test.Unit
     class ContentParserTests
     {
         private ContentParser _unitUnderTest;
-        private Mock<IContentRules> _mockContentRules;
+        private Mock<IContentRulesRepository> _mockContentRulesRepository;
+        private string _testInput = "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
+        private readonly List<string> _testNegativeWords = new List<string>()
+        {
+            "bad",
+            "horrible"
+        };
 
         [SetUp]
         public void SetUp()
         {
-            var testNegativeWords = new List<string>()
-            {
-                "bad",
-                "horrible"
-            };
-
-            _mockContentRules = new Mock<IContentRules>();
-            _mockContentRules.Setup(x => x.NegativeWords).Returns(testNegativeWords);
-            _unitUnderTest = new ContentParser(_mockContentRules.Object);
+            _mockContentRulesRepository = new Mock<IContentRulesRepository>();
+            _mockContentRulesRepository.Setup(x => x.GetNegativeWords()).Returns(_testNegativeWords);
+            _unitUnderTest = new ContentParser(_mockContentRulesRepository.Object);
         }
 
         [Test]
@@ -35,11 +36,17 @@ namespace ContentConsole.Test.Unit
         [Test]
         public void CountNegativeWords_ValidInputWith2NegativeWords_Returns2()
         {                   
-            var testInput = "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";   
-
-            var result = _unitUnderTest.CountNegativeWords(testInput);
+            var result = _unitUnderTest.CountNegativeWords(_testInput);
 
             Assert.AreEqual(2, result);
+        }
+
+        [Test]
+        public void CountNegativeWords_RetreivesNegativeWordsFromDataStore()
+        {
+            _unitUnderTest.CountNegativeWords(_testInput);
+
+            _mockContentRulesRepository.Verify(x => x.GetNegativeWords());
         }
     }
 }
