@@ -11,6 +11,7 @@ namespace ContentConsole.Test.Unit
         private ContentParser _unitUnderTest;
         private Mock<IContentRulesRepository> _mockContentRulesRepository;
         private string _testInput = "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
+        private string _testFilteredText = "The weather in Manchester in winter is b#d. It rains all the time - it must be h######e for people visiting.";
         private readonly List<string> _testNegativeWords = new List<string>()
         {
             "bad",
@@ -53,11 +54,22 @@ namespace ContentConsole.Test.Unit
         [TestCase("bad", "b#d")]
         [TestCase("bad bad", "b#d b#d")]
         [TestCase("bad words in the string are horrible", "b#d words in the string are h######e")]
-        public void FilterNegativeWords_ReplacesAllLettersBetweenFirstAndLastWithHashes(string input, string expected)
+        public void FilterNegativeWordsIfEnabled_ReplacesAllLettersBetweenFirstAndLastWithHashes(string input, string expected)
         {
-            var result = _unitUnderTest.FilterNegativeWords(input);
+            var result = _unitUnderTest.FilterNegativeWordsIfEnabled(input, true);
 
             Assert.AreEqual(result, expected);
+        }
+
+        [Test]
+        [TestCase("bad", "bad")]
+        [TestCase("bad bad", "bad bad")]
+        [TestCase("bad words in the string are horrible", "bad words in the string are horrible")]
+        public void FilterNegativeWordsIfEnabled_ShouldFilterIsFalse_ReturnsOriginalInput(string input, string expected)
+        {
+            var result = _unitUnderTest.FilterNegativeWordsIfEnabled(input, false);
+
+            Assert.AreEqual(result, expected);          
         }
     }
 }

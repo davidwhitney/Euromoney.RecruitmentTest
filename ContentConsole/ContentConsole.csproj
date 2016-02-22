@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentParser.cs" />
+    <Compile Include="ContentRetriever.cs" />
+    <Compile Include="IContentRetriever.cs" />
     <Compile Include="Interfaces\IContentParser.cs" />
     <Compile Include="Interfaces\IContentRules.cs" />
     <Compile Include="Program.cs" />

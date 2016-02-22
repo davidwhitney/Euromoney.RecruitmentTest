@@ -26,13 +26,16 @@ namespace ContentConsole
             return _negativeWords.Count(input.Contains);
         }
 
-        public string FilterNegativeWords(string input)
+        public string FilterNegativeWordsIfEnabled(string input, bool shouldFilter) //TODO Refactor to remove flag
         {
-            var regexString = BuildNegativeWordsRegularExpressions();
+            if (shouldFilter)
+            {
+                var regexString = BuildNegativeWordsRegularExpressions();
 
-            var filteredString = Regex.Replace(input, regexString, ReplaceMiddleCharacters());
+                return Regex.Replace(input, regexString, ReplaceMiddleCharacters());                
+            }
 
-            return filteredString;
+            return input;
         }
 
         private string BuildNegativeWordsRegularExpressions()

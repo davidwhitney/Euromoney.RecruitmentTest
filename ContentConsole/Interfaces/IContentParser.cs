@@ -2,7 +2,7 @@ namespace ContentConsole
 {
     public interface IContentParser
     {
-        int CountNegativeWords(string input);
-        string FilterNegativeWords(string input);
+        int CountNegativeWords(string _input);
+        string FilterNegativeWordsIfEnabled(string input, bool shouldFilter);
     }
 }
