@@ -48,5 +48,16 @@ namespace ContentConsole.Test.Unit
 
             _mockContentRulesRepository.Verify(x => x.GetNegativeWords());
         }
+
+        [Test]
+        [TestCase("bad", "b#d")]
+        [TestCase("bad bad", "b#d b#d")]
+        [TestCase("bad words in the string are horrible", "b#d words in the string are h######e")]
+        public void FilterNegativeWords_ReplacesAllLettersBetweenFirstAndLastWithHashes(string input, string expected)
+        {
+            var result = _unitUnderTest.FilterNegativeWords(input);
+
+            Assert.AreEqual(result, expected);
+        }
     }
 }
