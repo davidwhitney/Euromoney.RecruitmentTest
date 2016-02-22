@@ -1,44 +1,35 @@
 ﻿using System;
+using ContentConsole.DAL;
+using ContentConsole.DAL.Repositories;
 
 namespace ContentConsole
 {
     public static class Program
     {
         public static void Main(string[] args)
-        {
-            string bannedWord1 = "swine";
-            string bannedWord2 = "bad";
-            string bannedWord3 = "nasty";
-            string bannedWord4 = "horrible";
+        {            
+            //Move to IoC container
+            var dbContext = new ContentRulesContext();
+            var contentRulesRepository = new ContentRulesRepository(dbContext);
+            var contentParser = new ContentParser(contentRulesRepository);
+            var contentRetriever = new ContentRetriever();
+            var content = contentRetriever.GetContent();
 
-            string content =
-                "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
+            var badWordCount = contentParser.CountNegativeWords(content);
+            var disableFilter = Console.ReadLine();
 
-            int badWords = 0;
-            if (content.Contains(bannedWord1))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord2))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord4))
-            {
-                badWords = badWords + 1;
-            }
+            var shouldFilter = disableFilter != "y";
+
+            var parsedContent = contentParser.FilterNegativeWordsIfEnabled(content, shouldFilter);
+
+            Console.WriteLine("Enter 'y' to disable content filtering, otherwise press 'Enter' to proceed");
 
             Console.WriteLine("Scanned the text:");
-            Console.WriteLine(content);
-            Console.WriteLine("Total Number of negative words: " + badWords);
-
-            Console.WriteLine("Press ANY key to exit.");
-            Console.ReadKey();
+            Console.WriteLine(parsedContent);
+            Console.WriteLine("Total Number of negative words: " + badWordCount);
+            Console.WriteLine();
+            Console.WriteLine("Press 'Return' to exit application.");
+            Console.Read();
         }
     }
-
 }
