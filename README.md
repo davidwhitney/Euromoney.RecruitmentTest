@@ -81,4 +81,6 @@ So that **I can see the original content**.
 
 ---
 
+Note: Please submit your changes as a new pull request on *this* repo, and not on the original repo from which this is forked. If you can't submit a pull request then zip up your code and email it to us, but PRs are *strongly* preferred.
+
 Thanks for your time, we look forward to hearing from you!
