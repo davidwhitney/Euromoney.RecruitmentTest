@@ -13,6 +13,12 @@ This assignment is to analyse text, detecting and filtering negative words.
 - Reformat, refactor and rework the provided code in any way you see fit.
 - Code must be supported by tests to be "done-done".
 
+## Advice to candidates
+
+- You should approach this task in the same way that you would a real, production assignment. Do not 'code to the test'. 
+- It is more important that you show the right approach than that you complete all the stories. If you run low on time, apply an MVP to the stories. 
+- We will assume that the code you produce for this exercise reflects the kind of code you would write in a real-world situation, and assess accordingly.
+
 ## Task Stories
 
 Please complete each story in order.
