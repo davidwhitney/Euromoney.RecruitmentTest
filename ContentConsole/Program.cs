@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ContentConsole
 {
@@ -6,38 +7,83 @@ namespace ContentConsole
     {
         public static void Main(string[] args)
         {
-            string bannedWord1 = "swine";
-            string bannedWord2 = "bad";
-            string bannedWord3 = "nasty";
-            string bannedWord4 = "horrible";
+            ContentManagement _contentManagement = new ContentManagement();
+            List<BannedWord> _bannedWord = null;
 
-            string content =
-                "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
+            string[] arrBannedWords = System.IO.File.ReadAllLines(Environment.CurrentDirectory + "/../../TestData/BannedWord.txt");
 
-            int badWords = 0;
-            if (content.Contains(bannedWord1))
+            string content = "";
+            string response = "";
+
+            Console.WriteLine("Content Management Console");
+            Console.WriteLine("");
+
+            //Text proposal
+            Console.WriteLine("Please enter YES if you want to scan default text, otherwise press any key.");
+            response = Console.ReadLine();
+            if (response.ToLower() == "y" || response.ToLower() == "yes")
             {
-                badWords = badWords + 1;
+                content = System.IO.File.ReadAllText(Environment.CurrentDirectory + "/../../TestData/Text.txt");
             }
-            if (content.Contains(bannedWord2))
+            else
             {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord4))
-            {
-                badWords = badWords + 1;
+                Console.Write("Please enter the suggested text: ");
+                content = Console.ReadLine();
             }
 
+            //Story selections
+            Console.WriteLine("");
+            Console.WriteLine("What Story you want to test (please enter number of story)?\n 1. User story \n 2. Administrator story \n 3. Reader story \n 4. Content curator story \n");
+            response = Console.ReadLine();
+            if (response == "1")
+            {
+                _bannedWord = _contentManagement.BannedWordCounter(content, arrBannedWords);
+            }
+            else if (response == "2")
+            {
+                //Bad words proposal
+                Console.WriteLine("Please enter new banned words separated by comma and press ENTER.");
+                response = Console.ReadLine();
+                _bannedWord = _contentManagement.BannedWordCounter(content, response);
+            }
+            else if (response == "3")
+            {
+                content = _contentManagement.BannedWordReplacer(content, arrBannedWords);
+            }
+            else if (response == "4")
+            {
+                //Display original content with negative words count (similar to story 1, not totally understand the task for this story)
+                _bannedWord = _contentManagement.BannedWordCounter(content, arrBannedWords);
+            }
+            else
+            {
+                Console.WriteLine("Invalid request.");
+                Console.ReadKey();
+                return;
+            }
+
+            Console.WriteLine("");
             Console.WriteLine("Scanned the text:");
             Console.WriteLine(content);
-            Console.WriteLine("Total Number of negative words: " + badWords);
+            Console.WriteLine("");
 
-            Console.WriteLine("Press ANY key to exit.");
+            if (_bannedWord != null)
+            {
+                int badWordsTotal = 0;
+                foreach (BannedWord word in _bannedWord)
+                {
+                    badWordsTotal += word.Count;
+                    Console.WriteLine("Number of '{0}' : {1}", word.Word, word.Count);
+                }
+
+                Console.WriteLine("");
+                Console.WriteLine("Total Number of negative words : {0}", badWordsTotal);
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("Press any key for EXIT");
             Console.ReadKey();
+
         }
     }
 
