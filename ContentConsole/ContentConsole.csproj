@@ -42,8 +42,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataRepository\BannedWordFileRepository.cs" />
+    <Compile Include="DataRepository\BannedWordRepository.cs" />
+    <Compile Include="DataRepository\IBannedWordRepository.cs" />
+    <Compile Include="Helpers\IPhraseMatcher.cs" />
+    <Compile Include="Helpers\PhraseMatcher.cs" />
+    <Compile Include="Helpers\PhraseMatcherResult.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BannedWordCounterService.cs" />
+    <Compile Include="Services\BannedWordReplacementService.cs" />
+    <Compile Include="Services\BannedWordRetrievalService.cs" />
+    <Compile Include="Services\IBannedWordCounterService.cs" />
+    <Compile Include="Services\IBannedWordReplacementService.cs" />
+    <Compile Include="Services\IBannedWordRetrievalService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BannedWordFile.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
