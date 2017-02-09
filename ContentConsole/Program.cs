@@ -1,40 +1,47 @@
 ﻿using System;
+using ContentConsole.DataRepository;
+using ContentConsole.Helpers;
+using ContentConsole.Services;
 
 namespace ContentConsole
 {
     public static class Program
     {
+        // Settings
+        private const string BannedWordFileLocation = "../../BannedWordFile.txt";
+        private const bool HideBannedWords = true;
+
         public static void Main(string[] args)
         {
-            string bannedWord1 = "swine";
-            string bannedWord2 = "bad";
-            string bannedWord3 = "nasty";
-            string bannedWord4 = "horrible";
 
+            // Load words from file 
+            IBannedWordRepository bannedWordRepository = new BannedWordFileRepository(BannedWordFileLocation);
+
+            IBannedWordRetrievalService bannedWordRetrieval = new BannedWordRetrievalService(bannedWordRepository);
+            IBannedWordCounterService bannedWordCounterService = new BannedWordCounterService(bannedWordRetrieval, new PhraseMatcher());
+
+            IBannedWordReplacementService bannedWordReplacementService
+                = new BannedWordReplacementService(bannedWordRetrieval, new PhraseMatcher());
+
+            // Calculations 
             string content =
                 "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
+            int bannedWordCount = bannedWordCounterService.CountBannedWords(content);
 
-            int badWords = 0;
-            if (content.Contains(bannedWord1))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord2))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord4))
-            {
-                badWords = badWords + 1;
-            }
-
+            // Display output 
             Console.WriteLine("Scanned the text:");
-            Console.WriteLine(content);
-            Console.WriteLine("Total Number of negative words: " + badWords);
+
+            // Conditionally hide the banned words
+            if (HideBannedWords)
+            {
+                Console.WriteLine(bannedWordReplacementService.ReplaceBannedWords(content));
+            }
+            else
+            {
+                Console.WriteLine(content);
+            }
+
+            Console.WriteLine("Total Number of negative words: " + bannedWordCount);
 
             Console.WriteLine("Press ANY key to exit.");
             Console.ReadKey();
