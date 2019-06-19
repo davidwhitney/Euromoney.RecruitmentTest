@@ -21,15 +21,28 @@ namespace ContentConsole
             var response = new BadWordParseResponse();
             response.Content = content;
 
+            var badWords = 0;
             foreach (var badWord in badWordRepository.GetAll())
             {
-                if (content.ToLowerInvariant().Contains(badWord.ToLowerInvariant()))
-                {
-                    response.BadWordCount++;
-                }
+                badWords = badWords + ContentBadWordCount(badWord, content);
             }
+            response.BadWordCount = badWords;
+
 
             return response;
+        }
+
+        private int ContentBadWordCount(string badWord, string content)
+        {
+            var badWordIndex = content.ToLowerInvariant().IndexOf(badWord.ToLowerInvariant());
+            if (badWordIndex > -1)
+            {
+                return 1 + ContentBadWordCount(badWord, content.Substring(badWordIndex + badWord.Length));
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

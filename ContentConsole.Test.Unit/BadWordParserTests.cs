@@ -113,5 +113,20 @@ namespace ContentConsole.Test.Unit
             Assert.IsNotNull(actual);
             Assert.AreEqual(1, actual.BadWordCount);
         }
+
+        [Test]
+        public void Parse_WhenPassedContentWithTheSameBadWordTwice_ShouldCountBothInstancesOfBadWord()
+        {
+            // Arrange
+            var sut = new BadWordParser(MockBadWordRepo.Object);
+            var content = "This is horrible horrible content";
+
+            // Act
+            var actual = sut.Parse(content);
+
+            // Assert
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(2, actual.BadWordCount);
+        }
     }
 }
