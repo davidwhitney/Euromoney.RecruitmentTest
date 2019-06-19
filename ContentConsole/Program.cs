@@ -6,10 +6,8 @@ namespace ContentConsole
     {
         public static void Main(string[] args)
         {
-
-
-            string content =
-                "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
+            Console.WriteLine("Please enter content:");
+            var content = Console.ReadLine();
 
             var badWordRepository = new InMemoryBadWordRepository();
             var badWordParser = new BadWordParser(badWordRepository);
