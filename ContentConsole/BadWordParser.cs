@@ -21,15 +21,28 @@ namespace ContentConsole
             var response = new BadWordParseResponse();
             response.Content = content;
 
+
             var badWords = 0;
+            var filteredContent = content;
             foreach (var badWord in badWordRepository.GetAll())
             {
                 badWords = badWords + ContentBadWordCount(badWord, content);
+                filteredContent = FilterBadWords(badWord, filteredContent);
             }
             response.BadWordCount = badWords;
-
+            response.FilteredContent = filteredContent;
 
             return response;
+        }
+
+        private string FilterBadWords(string badWord, string content)
+        {
+            if (badWord.Length <= 2)
+            {
+                return content;
+            }
+            var filteredBadWord = GenerateFilterWord(badWord);
+            return content.Replace(badWord, filteredBadWord);
         }
 
         private int ContentBadWordCount(string badWord, string content)
@@ -43,6 +56,11 @@ namespace ContentConsole
             {
                 return 0;
             }
+        }
+
+        private string GenerateFilterWord(string word)
+        {
+            return word.Substring(0, 1) + new string('#', word.Length - 2) + word.Substring(word.Length - 1, 1); ;
         }
     }
 }

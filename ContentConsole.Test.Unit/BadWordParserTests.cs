@@ -128,5 +128,21 @@ namespace ContentConsole.Test.Unit
             Assert.IsNotNull(actual);
             Assert.AreEqual(2, actual.BadWordCount);
         }
+
+        [Test]
+        public void Parse_WhenPassedContentWithTheBadWord_ShouldReturnFilteredContent()
+        {
+            // Arrange
+            var sut = new BadWordParser(MockBadWordRepo.Object);
+            var content = "This is horrible content";
+            var expected = "This is h######e content";
+
+            // Act
+            var actual = sut.Parse(content);
+
+            // Assert
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected, actual.FilteredContent);
+        }
     }
 }
