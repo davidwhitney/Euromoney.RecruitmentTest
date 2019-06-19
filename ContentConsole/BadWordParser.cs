@@ -4,6 +4,13 @@ namespace ContentConsole
 {
     public class BadWordParser : IBadWordParser
     {
+        private readonly IBadWordRepository badWordRepository;
+
+        public BadWordParser(IBadWordRepository badWordRepository)
+        {
+            this.badWordRepository = badWordRepository;
+        }
+
         public BadWordParseResponse Parse(string content)
         {
             if (content == null)
@@ -14,30 +21,13 @@ namespace ContentConsole
             var response = new BadWordParseResponse();
             response.Content = content;
 
-            string bannedWord1 = "swine";
-            string bannedWord2 = "bad";
-            string bannedWord3 = "nasty";
-            string bannedWord4 = "horrible";
-
-            int badWords = 0;
-            if (content.Contains(bannedWord1))
+            foreach (var badWord in badWordRepository.GetAll())
             {
-                badWords = badWords + 1;
+                if (content.ToLowerInvariant().Contains(badWord.ToLowerInvariant()))
+                {
+                    response.BadWordCount++;
+                }
             }
-            if (content.Contains(bannedWord2))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord4))
-            {
-                badWords = badWords + 1;
-            }
-
-            response.BadWordCount = badWords;
 
             return response;
         }
