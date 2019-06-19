@@ -11,13 +11,13 @@ namespace ContentConsole
 
             // In real life I would use a dependency injector rather than instantiating the parser and in dependents here.
             var badWordRepository = new InMemoryBadWordRepository();
-            var badWordParser = new BadWordParser(badWordRepository);
+            var badWordParser = new BadWordService(badWordRepository);
 
-            var parseReponse = badWordParser.Parse(content);
+            var badWords = badWordParser.GetBadWordCount(content);
 
             Console.WriteLine("Scanned the text:");
-            Console.WriteLine(parseReponse.Content);
-            Console.WriteLine("Total Number of negative words: " + parseReponse.BadWordCount);
+            Console.WriteLine(content);
+            Console.WriteLine("Total Number of negative words: " + badWords);
 
             Console.WriteLine("Press ANY key to exit.");
             Console.ReadKey();

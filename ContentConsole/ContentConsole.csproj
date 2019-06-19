@@ -42,11 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BadWordParser.cs" />
-    <Compile Include="BadWordParseResponse.cs" />
+    <Compile Include="BadWordService.cs" />
     <Compile Include="InMemoryBadWordRepository.cs" />
-    <Compile Include="Interfaces\IBadWordParser.cs" />
     <Compile Include="Interfaces\IBadWordRepository.cs" />
+    <Compile Include="Interfaces\IBadWordService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

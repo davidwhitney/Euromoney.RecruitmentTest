@@ -2,40 +2,48 @@
 
 namespace ContentConsole
 {
-    public class BadWordParser : IBadWordParser
+    public class BadWordService : IBadWordService
     {
         private readonly IBadWordRepository badWordRepository;
 
-        public BadWordParser(IBadWordRepository badWordRepository)
+        public BadWordService(IBadWordRepository badWordRepository)
         {
             this.badWordRepository = badWordRepository;
         }
 
-        public BadWordParseResponse Parse(string content)
+        public int GetBadWordCount(string content)
         {
             if (content == null)
             {
                 throw new ArgumentNullException(nameof(content), $"Argument {nameof(content)} cannot be null");
             }
 
-            var response = new BadWordParseResponse();
-            response.Content = content;
-
-
             var badWords = 0;
-            var filteredContent = content;
             foreach (var badWord in badWordRepository.GetAll())
             {
                 badWords = badWords + ContentBadWordCount(badWord, content);
-                filteredContent = FilterBadWords(badWord, filteredContent);
             }
-            response.BadWordCount = badWords;
-            response.FilteredContent = filteredContent;
 
-            return response;
+            return badWords;
         }
 
-        private string FilterBadWords(string badWord, string content)
+        public string GetFilteredContent(string content)
+        {
+            if (content == null)
+            {
+                throw new ArgumentNullException(nameof(content), $"Argument {nameof(content)} cannot be null");
+            }
+
+            var filteredContent = content;
+            foreach (var badWord in badWordRepository.GetAll())
+            {
+                filteredContent = FilterBadWord(badWord, filteredContent);
+            }
+
+            return filteredContent;
+        }
+
+        private string FilterBadWord(string badWord, string content)
         {
             if (badWord.Length <= 2)
             {
