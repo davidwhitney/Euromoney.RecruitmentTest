@@ -2,6 +2,8 @@
 
 namespace ContentConsole
 {
+    // I've kept this console app as thoguh it's being used by the user. For the other stories they would also use the 
+    // BadWordService but call different methods. For adding managing the bad word you would use the BadWordRepository.
     public static class Program
     {
         public static void Main(string[] args)
