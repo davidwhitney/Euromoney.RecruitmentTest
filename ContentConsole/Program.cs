@@ -2,35 +2,20 @@
 
 namespace ContentConsole
 {
+    // I've kept this console app as thoguh it's being used by the user. For the other stories they would also use the 
+    // BadWordService but call different methods. For adding managing the bad word you would use the BadWordRepository.
     public static class Program
     {
         public static void Main(string[] args)
         {
-            string bannedWord1 = "swine";
-            string bannedWord2 = "bad";
-            string bannedWord3 = "nasty";
-            string bannedWord4 = "horrible";
+            Console.WriteLine("Please enter content:");
+            var content = Console.ReadLine();
 
-            string content =
-                "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
+            // In real life I would use a dependency injector rather than instantiating the parser and in dependents here.
+            var badWordRepository = new InMemoryBadWordRepository();
+            var badWordParser = new BadWordService(badWordRepository);
 
-            int badWords = 0;
-            if (content.Contains(bannedWord1))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord2))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord4))
-            {
-                badWords = badWords + 1;
-            }
+            var badWords = badWordParser.GetBadWordCount(content);
 
             Console.WriteLine("Scanned the text:");
             Console.WriteLine(content);
