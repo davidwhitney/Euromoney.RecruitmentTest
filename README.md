@@ -12,6 +12,8 @@ This assignment is to analyse text, detecting and filtering negative words.
 - No actual storage implementation or databases are required, feel free to stub or mock any data access you need.
 - Reformat, refactor and rework the provided code in any way you see fit.
 - Code must be supported by tests to be "done-done".
+- Please submit your changes as a new pull request on *this* repo, and not on the original repo from which this is forked. If you can't submit a pull request then zip up your code and email it to us, but PRs are *strongly* preferred.
+
 
 ## Advice to candidates
 
@@ -80,7 +82,5 @@ So that **I can see the original content**.
 - Original text output
 
 ---
-
-Note: Please submit your changes as a new pull request on *this* repo, and not on the original repo from which this is forked. If you can't submit a pull request then zip up your code and email it to us, but PRs are *strongly* preferred.
 
 Thanks for your time, we look forward to hearing from you!
