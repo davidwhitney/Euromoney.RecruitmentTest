@@ -1,44 +1,28 @@
-﻿using System;
+﻿using ContentConsole.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
 
 namespace ContentConsole
 {
-    public static class Program
+    class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
-            string bannedWord1 = "swine";
-            string bannedWord2 = "bad";
-            string bannedWord3 = "nasty";
-            string bannedWord4 = "horrible";
+            var host = CreateHostBuilder(args).Build();
+            var app = ActivatorUtilities.CreateInstance<AuthenticationHandler>(host.Services);
 
-            string content =
-                "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
-
-            int badWords = 0;
-            if (content.Contains(bannedWord1))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord2))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord4))
-            {
-                badWords = badWords + 1;
-            }
-
-            Console.WriteLine("Scanned the text:");
-            Console.WriteLine(content);
-            Console.WriteLine("Total Number of negative words: " + badWords);
-
-            Console.WriteLine("Press ANY key to exit.");
-            Console.ReadKey();
+            app.HandleAuth();
         }
-    }
 
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args).ConfigureServices((context, services) =>
+        {
+            services.AddScoped<IApiClientService, ApiClientService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddSingleton<IBannedWordDictionary, BannedWordDictionary>();
+            services.AddSingleton<IUserInputHandler, UserInputHandler>();
+        });
+
+    }
 }
